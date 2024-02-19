@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+from selectFolder import select_folder
 
 def generate_output(input_html, data, output_file):
     # Változók definiálása
@@ -36,10 +37,14 @@ def insert_part(input_file, part_file, output_file):
         # Ha nem találjuk meg a beszúrás helyét, akkor csak az eredeti HTML-t használjuk
         output_html = input_html
 
-    # Ellenőrizzük, hogy a 'kesz' mappa létezik-e, ha nem, létrehozzuk
-    output_folder = 'kesz'
+    # Az output fájl elérési útvonala
+    output_folder = select_folder() + "/hirlevel"
+    
+
+    # Ellenőrizzük, hogy a 'Downloads' mappa létezik-e, ha nem, létrehozzuk
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
+
 
     # Az output fájl elérési útvonala
     output_file_path = os.path.join(output_folder, output_file)
@@ -52,9 +57,7 @@ def insert_part(input_file, part_file, output_file):
     os.remove('output_part.html')
 
 
-def generatePartOutPut():
-    # Excel fájl elérési útja
-    excel_file = 'hirlevel_input.xlsx'
+def generatePartOutPut(template_part, excel_file):
 
 
 
@@ -81,7 +84,7 @@ def generatePartOutPut():
     df = pd.read_excel(excel_file)
 
     # Az input HTML fájl beolvasása
-    with open('template/part.html', 'r', encoding='utf-8') as f:
+    with open(template_part, 'r', encoding='utf-8') as f:
         input_html = f.read()
 
     # Az Excelből beolvasott adatok beillesztése
