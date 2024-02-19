@@ -61,8 +61,6 @@ def generatePartOutPut():
     # Excel fájl beolvasása DataFrame-be
     df = pd.read_excel(excel_file)
 
-    # DataFrame megjelenítése
-    print(df)
 
     # Az első oszlop a címeket tárolja
     cimek = df['CIM']
@@ -76,7 +74,6 @@ def generatePartOutPut():
     # A negyedik oszlop a nyitókép hivatkozásokat tárolja
     nyitokep_hivatkozasok = df['NYITOKEP_HIVATKOZAS']
 
-    print(cimek)
 
 
 
