@@ -1,28 +1,5 @@
+import os
 import pandas as pd
-
-# Excel fájl elérési útja
-excel_file = 'hirlevel_input.xlsx'
-
-# Excel fájl beolvasása DataFrame-be
-df = pd.read_excel(excel_file)
-
-# DataFrame megjelenítése
-print(df)
-
-# Az első oszlop a címeket tárolja
-cimek = df['CIM']
-
-# A második oszlop a bevezetőket tárolja
-bevezetok = df['BEVEZETO']
-
-# A harmadik oszlop a hivatkozásokat tárolja
-hivatkozasok = df['HIVATKOZAS']
-
-# A negyedik oszlop a nyitókép hivatkozásokat tárolja
-nyitokep_hivatkozasok = df['NYITOKEP_HIVATKOZAS']
-
-print(cimek)
-
 
 def generate_output(input_html, data, output_file):
     # Változók definiálása
@@ -42,26 +19,6 @@ def generate_output(input_html, data, output_file):
         f.write(output_html)
 
 
-
-# Excel fájl beolvasása DataFrame-be
-df = pd.read_excel(excel_file)
-
-# Az input HTML fájl beolvasása
-with open('part.html', 'r', encoding='utf-8') as f:
-    input_html = f.read()
-
-# Az Excelből beolvasott adatok beillesztése
-for index, data in df.iterrows():
-    generate_output(input_html, data, 'output_part.html')
-
-
-
-
-
-
-
-
-
 def insert_part(input_file, part_file, output_file):
     # Input HTML fájl beolvasása
     with open(input_file, 'r', encoding='utf-8') as f:
@@ -79,16 +36,59 @@ def insert_part(input_file, part_file, output_file):
         # Ha nem találjuk meg a beszúrás helyét, akkor csak az eredeti HTML-t használjuk
         output_html = input_html
 
+    # Ellenőrizzük, hogy a 'kesz' mappa létezik-e, ha nem, létrehozzuk
+    output_folder = 'kesz'
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
+
+    # Az output fájl elérési útvonala
+    output_file_path = os.path.join(output_folder, output_file)
+
     # Írjuk ki az eredményt az output fájlba
-    with open(output_file, 'w', encoding='utf-8') as f:
+    with open(output_file_path, 'w', encoding='utf-8') as f:
         f.write(output_html)
 
-# Fájlok elérési útjainak beállítása
-input_file_path = 'hirlevel.html'
-part_file_path = 'output_part.html'
-output_file_path = 'output.html'
+    # Az output_part.html fájl törlése
+    os.remove('output_part.html')
 
-# Beszúrás végrehajtása
-insert_part(input_file_path, part_file_path, output_file_path)
+
+def generatePartOutPut():
+    # Excel fájl elérési útja
+    excel_file = 'hirlevel_input.xlsx'
+
+
+
+    # Excel fájl beolvasása DataFrame-be
+    df = pd.read_excel(excel_file)
+
+    # DataFrame megjelenítése
+    print(df)
+
+    # Az első oszlop a címeket tárolja
+    cimek = df['CIM']
+
+    # A második oszlop a bevezetőket tárolja
+    bevezetok = df['BEVEZETO']
+
+    # A harmadik oszlop a hivatkozásokat tárolja
+    hivatkozasok = df['HIVATKOZAS']
+
+    # A negyedik oszlop a nyitókép hivatkozásokat tárolja
+    nyitokep_hivatkozasok = df['NYITOKEP_HIVATKOZAS']
+
+    print(cimek)
+
+
+
+    # Excel fájl beolvasása DataFrame-be
+    df = pd.read_excel(excel_file)
+
+    # Az input HTML fájl beolvasása
+    with open('template/part.html', 'r', encoding='utf-8') as f:
+        input_html = f.read()
+
+    # Az Excelből beolvasott adatok beillesztése
+    for index, data in df.iterrows():
+        generate_output(input_html, data, 'output_part.html')
 
 
