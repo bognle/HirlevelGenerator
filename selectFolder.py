@@ -5,7 +5,7 @@ def select_folder():
     root = tk.Tk()
     root.withdraw()  # A gyökér ablakot elrejtjük
     
-    folder_path = filedialog.askdirectory()  # Mappa kiválasztása ablak megjelenítése
+    folder_path = filedialog.askdirectory(message="Kérlek válaszd ki hogy hova szeretnéd menteni a fájlt!")  # Mappa kiválasztása ablak megjelenítése
     
     if folder_path:
         print("Selected folder:", folder_path)

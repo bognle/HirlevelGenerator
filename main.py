@@ -6,8 +6,8 @@ from selectInputFile import select_file
 
 
 # Fájlok elérési útjainak beállítása
-input_file_path = '/Users/bognarlehel/Lehel/Github/hirlevelGeneralas/template/template.html'
-input_part_file_path='/Users/bognarlehel/Lehel/Github/hirlevelGeneralas/template/part.html'
+input_file_path = './template/template.html'
+input_part_file_path='./template/part.html'
 
 output_part_file_path =  'output_part.html'
 output_file_name = 'output.html'

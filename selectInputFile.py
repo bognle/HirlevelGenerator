@@ -5,7 +5,7 @@ def select_file():
     root = tk.Tk()
     root.withdraw()  # A gyökér ablakot elrejtjük
     
-    file_path = filedialog.askopenfilename()  # Fájl kiválasztása ablak megjelenítése
+    file_path = filedialog.askopenfilename(title="Válaszd ki az inputfájlt! (.xlsx, .xls)")  # Fájl kiválasztása ablak megjelenítése
     
     if file_path:
         print("Selected file:", file_path)
