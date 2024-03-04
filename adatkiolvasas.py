@@ -22,6 +22,7 @@ def generate_output(input_html, data, output_file):
 
 def insert_part(input_file, part_file, output_file):
     # Input HTML fájl beolvasása
+        
     with open(input_file, 'r', encoding='utf-8') as f:
         input_html = f.read()
 
@@ -37,11 +38,14 @@ def insert_part(input_file, part_file, output_file):
         # Ha nem találjuk meg a beszúrás helyét, akkor csak az eredeti HTML-t használjuk
         output_html = input_html
 
-    # Az output fájl elérési útvonala
-    output_folder = select_folder() + "/hirlevel"
+    try:
+        # Az output fájl elérési útvonala
+        output_folder = select_folder() + "/hirlevel"
     
+    except Exception as e:
+        print("itt van a hiba:",e)
 
-    # Ellenőrizzük, hogy a 'Downloads' mappa létezik-e, ha nem, létrehozzuk
+        # Ellenőrizzük, hogy a 'Downloads' mappa létezik-e, ha nem, létrehozzuk
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
 
@@ -55,7 +59,6 @@ def insert_part(input_file, part_file, output_file):
 
     # Az output_part.html fájl törlése
     os.remove('output_part.html')
-
 
 def generatePartOutPut(template_part, excel_file):
 
